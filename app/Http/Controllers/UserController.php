@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -47,6 +48,7 @@ class UserController extends Controller
             ]);
             return redirect()->back()->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil ditambahkan']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal ditambahkan']);
         }
     }
@@ -90,6 +92,7 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('user.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil diubah']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal diubah']);
         }
     }
@@ -106,6 +109,7 @@ class UserController extends Controller
             User::destroy($user->id);
             return redirect()->route('user.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil dihapus']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal dihapus']);
         }
     }

@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\Transport;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\TryCatch;
 
 use function PHPUnit\Framework\throwException;
@@ -53,6 +54,7 @@ class RentalController extends Controller
             ]);
             return redirect()->back()->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil ditambahkan']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal ditambahkan']);
         }
     }
@@ -94,6 +96,7 @@ class RentalController extends Controller
             $rental->save();
             return redirect()->route('rental.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil diubah']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal diubah']);
         }
     }
@@ -110,6 +113,7 @@ class RentalController extends Controller
             Rental::destroy($rental->id);
             return redirect()->route('rental.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil dihapus']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal dihapus']);
         }
     }
@@ -145,6 +149,7 @@ class RentalController extends Controller
             $rental->save();
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal dihapus']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal dihapus']);
         }
     }

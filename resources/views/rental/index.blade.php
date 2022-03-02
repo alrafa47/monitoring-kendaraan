@@ -2,50 +2,52 @@
 @section('title', 'Rental')
 @section('content')
 
-    <div class="card">
-        <div class="card-header">
-            <h3>
-                Data Rental
-            </h3>
+    @can('is-admin')
+        <div class="card">
+            <div class="card-header">
+                <h3>
+                    Data Rental
+                </h3>
+            </div>
+            <div class="card-body">
+                @if (session('pesan'))
+                    <div class="alert alert-{{ session('pesan')->status }} ">
+                        {{ session('pesan')->message }}
+                    </div>
+                @endif
+                <form action={{ route('rental.store') }} method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label>Driver</label>
+                        <select name="driver" class="form-control">
+                            @forelse ($drivers as $driver)
+                                <option value="{{ $driver->id }}">{{ $driver->nama }}</option>
+                            @empty
+                                <option value="">Belum ada Driver Terdaftar</option>
+                            @endforelse
+                        </select>
+                        @error('driver')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Mobil</label>
+                        <select name="transport" class="form-control">
+                            @forelse ($transports as $transport)
+                                <option value="{{ $transport->id }}">{{ "$transport->merk ({$transport->warna})" }}</option>
+                            @empty
+                                <option value="">Belum ada Kendaraan Terdaftar</option>
+                            @endforelse
+                        </select>
+                        @error('transport')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            @if (session('pesan'))
-                <div class="alert alert-{{ session('pesan')->status }} ">
-                    {{ session('pesan')->message }}
-                </div>
-            @endif
-            <form action={{ route('rental.store') }} method="POST">
-                @csrf
-                <div class="form-group">
-                    <label>Driver</label>
-                    <select name="driver" class="form-control">
-                        @forelse ($drivers as $driver)
-                            <option value="{{ $driver->id }}">{{ $driver->nama }}</option>
-                        @empty
-                            <option value="">Belum ada Driver Terdaftar</option>
-                        @endforelse
-                    </select>
-                    @error('driver')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Mobil</label>
-                    <select name="transport" class="form-control">
-                        @forelse ($transports as $transport)
-                            <option value="{{ $transport->id }}">{{ "$transport->merk ({$transport->warna})" }}</option>
-                        @empty
-                            <option value="">Belum ada Kendaraan Terdaftar</option>
-                        @endforelse
-                    </select>
-                    @error('transport')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </form>
-        </div>
-    </div>
+    @endcan
 
     <div class="card">
         <div class="card-header">

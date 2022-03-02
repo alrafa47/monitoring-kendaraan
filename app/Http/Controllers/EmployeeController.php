@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
@@ -46,6 +47,7 @@ class EmployeeController extends Controller
             ]);
             return redirect()->back()->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil ditambahkan']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal ditambahkan']);
         }
     }
@@ -88,6 +90,7 @@ class EmployeeController extends Controller
             $employee->save();
             return redirect()->route('employee.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil diubah']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal diubah']);
         }
     }
@@ -104,6 +107,7 @@ class EmployeeController extends Controller
             Employee::destroy($employee->id);
             return redirect()->route('employee.index')->with('pesan', (object)['status' => 'success', 'message' => 'data berhasil dihapus']);
         } catch (QueryException $th) {
+            Log::error("error " . __CLASS__ . "->" . __FUNCTION__ . "-" .  " error code : " . $th->errorInfo[0]);
             return redirect()->back()->with('pesan', (object)['status' => 'danger', 'message' => 'data gagal dihapus']);
         }
     }
