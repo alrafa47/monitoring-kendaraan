@@ -17,7 +17,7 @@ class TransportController extends Controller
      */
     public function index()
     {
-        $transports = Transport::all();
+        $transports = Transport::paginate(5);
         return view('transport.index', compact('transports'));
     }
 

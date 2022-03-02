@@ -25,7 +25,7 @@ class RentalController extends Controller
     {
         $drivers = Employee::all();
         $transports = Transport::where('status', true)->get();
-        $rentals = Rental::with(['transport', 'employee'])->get();
+        $rentals = Rental::with(['transport', 'employee'])->paginate(5);
         return view('rental.index', compact('rentals', 'drivers', 'transports'));
     }
 

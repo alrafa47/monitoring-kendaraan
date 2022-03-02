@@ -74,7 +74,7 @@
                 <tbody>
                     @forelse ($rentals as $rental)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + $rentals->firstItem() - 1 }}</td>
                             <td>{{ $rental->employee->nama }}</td>
                             <td>{{ "{$rental->transport->merk} ({$rental->transport->warna})" }}</td>
                             <td>
@@ -130,6 +130,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $rentals->links() }}
         </div>
     </div>
 

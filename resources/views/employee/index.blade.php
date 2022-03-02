@@ -66,7 +66,7 @@
                 <tbody>
                     @forelse ($employees as $employee)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + $employees->firstItem() - 1 }}</td>
                             <td>{{ $employee->nama }}</td>
                             <td>{{ $employee->telp }}</td>
                             <td>{{ $employee->alamat }}</td>
@@ -95,6 +95,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="float-right mt-2">
+                {{ $employees->links() }}
+            </div>
         </div>
     </div>
 

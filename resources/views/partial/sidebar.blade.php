@@ -32,7 +32,7 @@
                 <li class="nav-item">
                     <a href="{{ route('employee.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Employee</p>
+                        <p>Karyawan</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -44,7 +44,7 @@
                 <li class="nav-item">
                     <a href="{{ route('rental.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Rent</p>
+                        <p>Rental</p>
                     </a>
                 </li>
             </ul>

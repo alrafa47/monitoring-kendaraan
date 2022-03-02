@@ -75,7 +75,7 @@
                 <tbody>
                     @forelse ($users as $user)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + $users->firstItem() - 1 }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
@@ -103,6 +103,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="float-right mt-2">
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
 

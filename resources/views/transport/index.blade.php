@@ -75,7 +75,7 @@
                 <tbody>
                     @forelse ($transports as $transport)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + $transports->firstItem() - 1 }}</td>
                             <td>{{ $transport->merk }}</td>
                             <td>{{ $transport->warna }}</td>
                             <td>{{ $transport->konsumsi_bbm . ' liter' }}</td>
@@ -105,6 +105,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="float-right mt-2">
+                {{ $transports->links() }}
+            </div>
         </div>
     </div>
 
