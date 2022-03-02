@@ -13,7 +13,6 @@ Aplikasi ini dibuat menggunakanmya
 -   jalankan **composer install**
 -   jalankan **php artisan key:generate**
 -   jalankan **php artisan migrate --seed**
--   jalankan **php artisan passport:install**
 -   jalankan **npm install**
 -   jalankan **npm run dev**
 
@@ -35,3 +34,6 @@ Aplikasi ini dibuat menggunakanmya
 -   tahapan selanjutnya data rental tersebut tinggal menunggu persetujuan dari kabag umum serta kabag kepegawaian
 -   untuk melakukan persetujuan terhadap pemesanan, diharuskan untuk melakukan login sebagai kabag umum dan kabag khusus. kemudian masuk kedalam menu rental dan klik acc pada tabel. setelah mendapatkan perseujuan dari kedua pihak maka driver sudah bisa menggunakan mobil
 -   untuk melihat grafik dan melakukan proses export Excel maupun PDF, user dapat mengakses menu dashboard.
+
+# File Diagram
+file ERD serta Activity terdapat pada folder /diagram
