@@ -13,7 +13,6 @@ Aplikasi ini dibuat menggunakanmya
 -   jalankan **composer install**
 -   jalankan **php artisan key:generate**
 -   jalankan **php artisan migrate --seed**
--   jalankan **php artisan passport:install**
 -   jalankan **npm install**
 -   jalankan **npm run dev**
 
