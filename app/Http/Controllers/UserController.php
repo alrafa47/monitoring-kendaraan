@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,9 +16,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        if ($request->get('search')) {
+            $users = User::where('name', 'like', "%" . $request->get('search') . "%")->paginate(5);
+        } else {
+            $users = User::paginate(10);
+        }
         return view('User.index', compact('users'));
     }
 

@@ -51,6 +51,15 @@
             </h3>
         </div>
         <div class="card-body">
+            <form action="/employee" method="GET">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="search" placeholder="Cari User berdasarkan nama"
+                        value="{{ old('search') }}">
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-primary" value="CARI">
+                    </div>
+                </div>
+            </form>
             <table class="table table-striped">
                 <thead>
                     <tr>

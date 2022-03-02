@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
@@ -15,9 +16,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::paginate(5);
+        if ($request->get('search')) {
+            $employees = Employee::where('nama', 'like', "%" . $request->get('search') . "%")->paginate(5);
+        } else {
+            $employees = Employee::paginate(5);
+        }
         return view('employee.index', compact('employees'));
     }
 

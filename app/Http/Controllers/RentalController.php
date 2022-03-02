@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Rental;
 use App\Http\Requests\StoreRentalRequest;
 use App\Http\Requests\UpdateRentalRequest;
 use App\Models\Employee;
 use App\Models\Transport;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\TryCatch;
@@ -21,11 +23,19 @@ class RentalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->get('search')) {
+            $rentals = Rental::orWhereHas('employee', function (Builder $query) use ($request) {
+                $query->where('nama', 'like', "%" . $request->get('search') . "%");
+            })->orWhereHas('transport', function (Builder $query) use ($request) {
+                $query->where('merk', 'like', "%" . $request->get('search') . "%");
+            })->paginate(5);
+        } else {
+            $rentals = Rental::with(['transport', 'employee'])->paginate(5);
+        }
         $drivers = Employee::all();
         $transports = Transport::where('status', true)->get();
-        $rentals = Rental::with(['transport', 'employee'])->paginate(5);
         return view('rental.index', compact('rentals', 'drivers', 'transports'));
     }
 

@@ -6,6 +6,7 @@ use App\Models\Transport;
 use App\Http\Requests\StoreTransportRequest;
 use App\Http\Requests\UpdateTransportRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TransportController extends Controller
@@ -15,9 +16,13 @@ class TransportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transports = Transport::paginate(5);
+        if ($request->get('search')) {
+            $transports = Transport::where('merk', 'like', "%" . $request->get('search') . "%")->paginate(5);
+        } else {
+            $transports = Transport::paginate(5);
+        }
         return view('transport.index', compact('transports'));
     }
 
